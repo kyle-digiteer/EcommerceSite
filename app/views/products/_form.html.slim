@@ -1,0 +1,30 @@
+= form_with(model: product) do |form|
+  - if product.errors.any?
+    div style="color: red"
+      h2 = "#{pluralize(product.errors.count, "error")} prohibited this product from being saved:"
+      ul
+        - product.errors.each do |error|
+          li = error.full_message
+
+  div
+    = form.label :name, style: "display: block"
+    = form.text_field :name
+
+  div
+    = form.label :description, style: "display: block"
+    = form.text_area :description
+
+  div
+    h3 Product Variant
+    = form.fields_for :product_variants do |variant_form| #fields_for used to accessted the nested attributes
+      = variant_form.label :price, "product price"
+      = variant_form.text_field :price
+
+      = variant_form.label :size, "product size"
+      = variant_form.text_field :size
+
+      = variant_form.label :color, "product color"
+      = variant_form.text_field :color
+
+  div
+    = form.submit
