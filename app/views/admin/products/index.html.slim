@@ -6,5 +6,5 @@ h1 Products
   - @products.each do |product|
     == render product
     p
-      = link_to "Show this product", product
-= link_to "New product", new_product_path
+      = link_to "Show this product", admin_product_path(product)
+= link_to "New product", new_admin_product_path
