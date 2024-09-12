@@ -14,17 +14,18 @@
     = form.label :description, style: "display: block"
     = form.text_area :description
 
-  div
-    h3 Product Variant
-    = form.fields_for :product_variants do |variant_form| #fields_for used to accessted the nested attributes
-      = variant_form.label :price, "product price"
-      = variant_form.text_field :price
+  div data-controller="nested-form" data-nested-form-index-value="PRODUCT_VARIANT_RECORD"
+    template data-nested-form-target="template"
+      = form.fields_for :product_variants, ProductVariant.new, child_index: 'PRODUCT_VARIANT_RECORD' do |variant|
+        = render 'product_variant_fields', form: variant
 
-      = variant_form.label :size, "product size"
-      = variant_form.text_field :size
+    = form.fields_for :product_variants do |existing_variant|
+      = render 'product_variant_fields', form: existing_variant
 
-      = variant_form.label :color, "product color"
-      = variant_form.text_field :color
+    div data-nested-form-target="add_item"
+      = link_to "Add Variant", '#', data: { action: 'nested-form#add_association' }
 
-  div
+  br/
+  br/
+  div class="actions"
     = form.submit

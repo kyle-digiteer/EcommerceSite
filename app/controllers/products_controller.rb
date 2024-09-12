@@ -7,12 +7,14 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1 or /products/1.json
-  def show; end
+  def show
+    @product_variants = @product.product_variants
+  end
 
   # GET /products/new
   def new
     @product = Product.new
-    @product.product_variants.build
+    @product.product_variants.build # add this if you want to automatically add
   end
 
   # GET /products/1/edit
@@ -65,6 +67,6 @@ class ProductsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(:name, :description,
-                                    product_variants_attributes: %i[id price color size _destroy])
+                                    product_variants_attributes: %i[_destroy id price color size stock])
   end
 end

@@ -1,6 +1,14 @@
 p style="color: green" = notice
 
-== render @product
+p =< @product.name
+p =< @product.description
+
+- @product.product_variants.each do |variant|
+  p = variant.price
+  p = variant.stock
+  p = variant.size
+  p = variant.color
+
 
 div
   => link_to "Edit this product", edit_product_path(@product)

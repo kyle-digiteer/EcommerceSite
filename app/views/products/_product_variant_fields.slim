@@ -1,0 +1,20 @@
+div class="nested-fields"
+  div class="form-group"
+    = form.hidden_field :_destroy
+    = form.label :price
+    = form.text_field :price, placeholder: 'Price', class: 'form-control'
+
+    = form.hidden_field :_destroy
+    = form.label :Stock
+    = form.text_field :stock, placeholder: 'Stock', class: 'form-control'
+
+    = form.hidden_field :_destroy
+    = form.label :color
+    = form.text_field :color, placeholder: 'Color', class: 'form-control'
+
+    = form.hidden_field :_destroy
+    = form.label :size
+    = form.text_field :size, placeholder: 'Size', class: 'form-control'
+
+    small
+      = link_to 'Remove Variant', '#', data: { action: "click->nested-form#remove_association" }
