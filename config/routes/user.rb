@@ -17,4 +17,7 @@ devise_for :users,
            }
 
 namespace :user, path: '/' do
+  resources :home
+
+  resources :products
 end

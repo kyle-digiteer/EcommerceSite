@@ -1,0 +1,14 @@
+p
+  = @product.name
+p
+  = @product.description
+
+- @variant.each do |variant, index|
+  p
+    = variant.color
+  p
+    = variant.size
+  p
+    = variant.price
+  p
+    = variant.stock
