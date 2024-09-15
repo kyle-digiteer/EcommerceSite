@@ -1,6 +1,8 @@
-h1 Your Shopping Cart
+h1 Checkout
 
 - if @cart.cart_items.any?
+  h2 Cart Summary
+
   table.table
     thead
       tr
@@ -8,7 +10,6 @@ h1 Your Shopping Cart
         th Quantity
         th Unit Price
         th Total Price
-        th Actions
     tbody
       - @cart.cart_items.each do |cart_item|
         - if cart_item.product_variant.present?
@@ -18,25 +19,25 @@ h1 Your Shopping Cart
               small
                 = cart_item.product_variant.size
             td
-              = form_with(model: cart_item, url: user_carts_item_path(cart_item), method: :patch, local: true) do |f|
-                = f.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control'
-                = f.submit 'Update', class: 'btn btn-primary'
+              = cart_item.quantity
             td
               = number_to_currency(cart_item.product_variant.price)
             td
               = number_to_currency(cart_item.quantity * cart_item.product_variant.price)
-            td
-              = button_to 'Remove', user_carts_item_path(cart_item.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
-        - else
-          tr
-            td{ colspan: 5 }
-              p Cart item with missing product variant
-  hr
 
   h3 Total Price:
     = number_to_currency(@cart.total_price || 0)
 
-  = button_to 'Checkout', checkout_user_orders_path, method: :post, class: 'btn btn-success'
+  h2 Payment Method
+
+  = form_with url: checkout_user_orders_path, method: :post, local: true do |f|
+    = f.radio_button :payment_method, 'cod'
+    = f.label :payment_method_cod, 'Cash on Delivery'
+    br
+    = f.radio_button :payment_method, 'bank_transfer'
+    = f.label :payment_method_bank_transfer, 'Bank Transfer'
+    br
+    = f.submit 'Place Order', class: 'btn btn-primary'
 - else
   p Your cart is empty.
   = link_to 'Continue Shopping', user_products_path, class: 'btn btn-primary'

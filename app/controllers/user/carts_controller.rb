@@ -29,6 +29,22 @@ class User::CartsController < UserController
     redirect_to user_products_path, notice: 'Cart was successfully destroyed.'
   end
 
+  #   def checkout
+  #     order =  Order.create(user: current_user, status: :pending)
+  #
+  #     @cart.cart_items.each do |cart_item|
+  #       order.order_items.create(
+  #         product_variant: cart_item.product_variant,
+  #         quantity: cart_item.quantity,
+  #         price: cart_item.product_variant.price
+  #       )
+  #     end
+  #
+  #     @cart.cart_items.destroy_all
+  #
+  #     redirect_to order_confirmation_user_order_path(order), notice: "Order placed successfully"
+  #   end
+
   private
 
   def set_cart
