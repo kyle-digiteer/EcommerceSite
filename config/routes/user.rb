@@ -20,4 +20,7 @@ namespace :user, path: '/' do
   resources :home
 
   resources :products
+
+  resources :carts, only: %i[show create update destroy]
+  resources :carts_item, only: %i[create update destroy]
 end

@@ -12,3 +12,8 @@ p
     = variant.price
   p
     = variant.stock
+
+  = form_with url: user_carts_item_index_path, method: :post, local: true do |f|
+    = hidden_field_tag :product_variant_id, variant.id
+    = number_field_tag :quantity, 1, min: 1
+    = f.submit 'Add to Cart', class: 'btn btn-primary'
