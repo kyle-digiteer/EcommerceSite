@@ -17,6 +17,8 @@ class User::OrdersController < UserController
         quantity: cart_item.quantity,
         price: cart_item.product_variant.price
       )
+
+      cart_item.product_variant.update!(stock: cart_item.product_variant.stock - cart_item.quantity)
     end
 
     case params[:payment_method]
