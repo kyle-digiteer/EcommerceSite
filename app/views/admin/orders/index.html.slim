@@ -1,0 +1,7 @@
+h1 This is Order Dashboard
+
+- @orders.each do |order|
+  p Order for #{order.user.email}
+  p = order.total
+  = link_to "view order", admin_order_path(order)
+  hr

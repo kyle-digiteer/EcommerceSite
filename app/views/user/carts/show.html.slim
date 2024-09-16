@@ -5,6 +5,7 @@ h1 Your Shopping Cart
     thead
       tr
         th Product
+        th Size
         th Quantity
         th Unit Price
         th Total Price
@@ -15,6 +16,7 @@ h1 Your Shopping Cart
           tr
             td
               = cart_item.product_variant.color
+            td
               small
                 = cart_item.product_variant.size
             td
@@ -34,7 +36,7 @@ h1 Your Shopping Cart
   hr
 
   h3 Total Price:
-    = number_to_currency(@cart.total_price || 0)
+  = @cart.total_price || 0
 
   = button_to 'Checkout', checkout_user_orders_path, method: :post, class: 'btn btn-success'
 - else

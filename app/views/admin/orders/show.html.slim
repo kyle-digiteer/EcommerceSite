@@ -1,0 +1,10 @@
+h1 This is show Order for #{@order.user.email}
+- @order_items.each do |item|
+  p = item.product.name
+  p = item.product.description
+
+p = @order.order_status
+p = @order.payment_status
+p = @order.total
+
+= link_to "Edit", edit_admin_order_path(@order)

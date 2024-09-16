@@ -1,2 +1,7 @@
 p This is the Homepage that you can shop
 = link_to "Shop", user_products_path
+
+- if current_user.wallet
+  = link_to "Wallet", user_wallet_path(current_user.wallet), class:'btn btn-primary'
+- else
+  = link_to "Create Wallet", new_user_wallet_path, class:'btn btn-primary'

@@ -14,4 +14,8 @@ devise_for :admins,
            }
 namespace :admin, path: 'admin' do
   resources :products
+
+  resources :dashboard
+
+  resources :orders
 end

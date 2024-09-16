@@ -2,7 +2,6 @@ class User::CartsItemController < UserController
   before_action :set_cart_item, only: %i[update destroy]
 
   def create
-    logger.debug "Params: #{params.inspect}"
     @cart = current_user.cart || Cart.create(user_id: current_user.id)
     product_variant = ProductVariant.find(params[:product_variant_id])
 

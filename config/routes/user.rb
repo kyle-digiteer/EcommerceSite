@@ -30,4 +30,11 @@ namespace :user, path: '/' do
       get :confirmation
     end
   end
+
+  resources :wallet, only: %i[show new create destroy] do
+    member do
+      patch 'cash_in'
+      get 'new_cash_in'
+    end
+  end
 end

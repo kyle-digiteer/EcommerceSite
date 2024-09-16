@@ -1,0 +1,8 @@
+h1 Cash in
+= form_with(model: @wallet, url: cash_in_user_wallet_path(@wallet), method: :patch, local: true) do |f|
+  .form-group
+    = f.label :amount, 'Amount to Add'
+    = f.number_field :amount, step: '0.01', class: 'form-control', min: '0'
+
+  .form-group
+    = f.submit 'Add Funds', class: 'btn btn-primary'
