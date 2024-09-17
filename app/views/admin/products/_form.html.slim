@@ -1,10 +1,10 @@
-= form_for [:admin, @product], html: { 'data-controller' => 'validate', turbo: false, "data-form" => "data-form" } do |form|
+= form_for [:admin, @product], html: {'data-controller' => 'validate', turbo: false, "data-form": "data-form"} do |form|
   - if @product.errors.any?
     .alert.alert-danger
       h2 = "#{pluralize(@product.errors.count, 'error')} prohibited this product from being saved:"
       ul
-        - @product.errors.full_messages.each do |message|
-          li = message
+        - @product.errors.each do |error|
+          li = error.full_message
 
   .mb-3
     = form.label :name, class: 'form-label'
@@ -23,7 +23,7 @@
       = render 'product_variant_fields', form: existing_variant
 
     div data-nested-form-target="add_item"
-      = link_to "Add Variant", '#', data: { action: 'nested-form#add_association' }, class: 'btn btn-primary'
+      = link_to "Add Variant", '#', data: { action: 'nested-form#add_association' }
 
   .mt-4
     .d-flex.justify-content-end
