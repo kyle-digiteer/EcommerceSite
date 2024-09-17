@@ -1,6 +1,10 @@
-p This is All the Products
-- @products.each do |product|
-  p = product.name
-  p = product.description
-
-  = link_to "show", user_product_path(product)
+.container.mt-4
+  h2.mb-4 All Products
+  .row
+    - @products.each do |product|
+      .col-md-4.mb-4
+        .card
+          .card-body
+            h5.card-title = product.name
+            p.card-text = product.description
+            = link_to "Show", user_product_path(product), class: "btn btn-primary"

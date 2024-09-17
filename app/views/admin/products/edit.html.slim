@@ -1,9 +1,12 @@
-h1 Editing product
+.container.mt-4
+  .row.justify-content-center
+    .col-md-8
+      h1.text-center Editing Product
 
-== render "form", product: @product
+      == render "form", product: @product
 
-br
+      br
 
-div
-  => link_to "Show this product", admin_product_path(@product)
-  =< link_to "Back to products", admin_products_path
+      .d-flex.justify-content-between.mt-3
+        = link_to "Show this product", admin_product_path(@product), class: 'btn btn-primary'
+        = link_to "Back to products", admin_products_path, class: 'btn btn-secondary'

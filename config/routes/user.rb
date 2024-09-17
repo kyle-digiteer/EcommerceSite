@@ -24,7 +24,7 @@ namespace :user, path: '/' do
   resources :carts, only: %i[show create update destroy]
   resources :carts_item, only: %i[create update destroy]
 
-  resources :orders, only: [] do
+  resources :orders, only: [:index] do
     collection do
       post :checkout
       get :confirmation

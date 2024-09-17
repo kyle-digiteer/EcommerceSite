@@ -1,0 +1,44 @@
+.container.mt-4
+  h1 My Orders
+
+  - if @orders.any?
+    - @orders.each do |order|
+      .card.mb-4
+        .card-header
+          h5 Order ##{order.id}
+          p.mb-0
+            | Status:
+            strong =< order.order_status
+          p.mb-0
+            | Payment:
+            strong =< order.payment_status
+
+        .card-body
+          h6 Order Items: #{order.created_at.strftime("%d %B %Y")}
+          - order.order_items.each do |item|
+            .row.mb-3
+              .col-md-6
+                p.mb-1
+                  strong Product Name:
+                  =< item.product.name
+                p.mb-1
+                  | Description:
+                  =< item.product.description
+                p.mb-1
+                  | Color:
+                  =< item.product_variant.color
+                p.mb-1
+                  | Size:
+                  =< item.product_variant.size
+                p.mb-1
+                  | Price:
+                  =< item.product_variant.price
+
+        .card-footer.text-right
+          h5.mb-0
+            | Total:
+            span.text-success =< number_to_currency(order.total, unit: "₱")
+  - else
+    .alert.alert-info.text-center
+      | You have no orders yet.
+

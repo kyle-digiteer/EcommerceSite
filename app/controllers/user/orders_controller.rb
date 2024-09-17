@@ -1,4 +1,8 @@
 class User::OrdersController < UserController
+  def index
+    @orders = Order.where(user_id: current_user.id).order(:created_at)
+  end
+
   def confirmation
     @order = Order.find(params[:id])
   end

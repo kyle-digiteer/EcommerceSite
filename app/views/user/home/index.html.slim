@@ -1,7 +1,11 @@
-p This is the Homepage that you can shop
-= link_to "Shop", user_products_path
-
-- if current_user.wallet
-  = link_to "Wallet", user_wallet_path(current_user.wallet), class:'btn btn-primary'
-- else
-  = link_to "Create Wallet", new_user_wallet_path, class:'btn btn-primary'
+.container.mt-4
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header
+          h1.text-center Welcome to Our Shop
+        .card-body
+          p.text-center
+            | This is the homepage where you can shop for our latest products.
+          .text-center
+            = link_to "Shop Now", user_products_path, class: 'btn btn-primary btn-lg'

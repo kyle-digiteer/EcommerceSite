@@ -1,19 +1,28 @@
-p
-  = @product.name
-p
-  = @product.description
+.container.mt-4
+  h2 = @product.name
+  p = @product.description
 
-- @variant.each do |variant, index|
-  p
-    = variant.color
-  p
-    = variant.size
-  p
-    = variant.price
-  p
-    = variant.stock
+  h3.mt-4 Variants
+  - @variant.each do |variant|
+    .card.mb-3
+      .card-body
+        p
+          strong Color:
+          = variant.color
+        p
+          strong Size:
+          = variant.size
+        p
+          strong Price:
+          = number_to_currency(variant.price)
+        p
+          strong Stock:
+          = variant.stock
 
-  = form_with url: user_carts_item_index_path, method: :post, local: true do |f|
-    = hidden_field_tag :product_variant_id, variant.id
-    = number_field_tag :quantity, 1, min: 1
-    = f.submit 'Add to Cart', class: 'btn btn-primary'
+        = form_with url: user_carts_item_index_path, method: :post, local: true do |f|
+          = hidden_field_tag :product_variant_id, variant.id
+          .form-group
+            = f.label :quantity, "Quantity"
+            = number_field_tag :quantity, 1, min: 1, class: 'form-control w-25'
+          .form-group.mt-2
+            = f.submit 'Add to Cart', class: 'btn btn-primary'

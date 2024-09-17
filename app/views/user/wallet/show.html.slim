@@ -1,5 +1,12 @@
-h1 Your Balance
-p = @wallet.balance
-
-= link_to 'Add Funds', new_cash_in_user_wallet_path(@wallet), class: 'btn btn-primary'
-= button_to 'Delete Wallet', user_wallet_path(@wallet), method: :delete, data: { confirm: 'Are you sure you want to delete your wallet?' }, class: 'btn btn-danger'
+.container.mt-4
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h1.text-center Your Balance
+        .card-body.text-center
+          h2.text-success.mb-4
+            | ₱
+            = number_to_currency(@wallet.balance, unit: "", precision: 2)
+          = link_to 'Add Funds', new_cash_in_user_wallet_path(@wallet), class: 'btn btn-primary btn-lg'
+          = button_to 'Delete Wallet', user_wallet_path(@wallet), method: :delete, data: { confirm: 'Are you sure you want to delete your wallet?' }, class: 'btn btn-danger btn-lg mt-3'

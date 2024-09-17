@@ -36,7 +36,7 @@ class Admin::ProductsController < AdminController
   # PATCH/PUT /products/1 or /products/1.json
   def update
     if @product.update(product_params)
-      redirect_to admin_products_path, notice: 'Product was successfully updated.'
+      redirect_to admin_product_path(@product), notice: 'Product was successfully updated.'
 
     else
       render :edit, status: :unprocessable_entity

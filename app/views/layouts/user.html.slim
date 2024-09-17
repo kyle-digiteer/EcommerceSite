@@ -9,8 +9,35 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body
-    / header
-    /   = link_to
+    .container
+      - flash.each do |key, message|
+        .alert.alert-#{key == 'notice' ? 'info' : 'danger'}
+          = message
+
+    - if user_signed_in?
+      nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container
+          a.navbar-brand href="/" BRAND
+          button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+            span.navbar-toggler-icon
+          .collapse.navbar-collapse id="navbarNav"
+            ul.navbar-nav.ms-auto.mb-2.mb-lg-0
+                  li.nav-item
+                    = link_to "Shop", user_products_path, class: 'nav-link'
+                  li.nav-item
+                    = link_to "Cart", user_cart_path(current_user.id), class: 'nav-link'
+                  li.nav-item
+                    = link_to "My Order", user_orders_path, class: 'nav-link'
+                  li.nav-item
+                    = link_to "Profile", edit_user_registration_path, class: 'nav-link'
+                  li.nav-item
+                    - if current_user.wallet
+                      = link_to "Wallet", user_wallet_path(current_user.wallet), class: 'btn btn-primary'
+                    - else
+                      = link_to "Create Wallet", new_user_wallet_path, class: 'btn btn-primary'
+                  li.nav-item
+                    = button_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-link'
+    - else
     main
       = yield
     script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
