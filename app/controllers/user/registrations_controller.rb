@@ -3,7 +3,8 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   # before_action :parse_birth_date, only: [:create]
   # before_action :set_user_cart, only: [:new]
-  # before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_sign_up_params, only: %i[create]
+  before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -26,14 +27,20 @@ class User::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+  end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    super do |resource|
+      if resource.errors.any?
+        Rails.logger.debug "Errors: #{resource.errors.full_messages.join(', ')}"
+      else
+        Rails.logger.debug "Updated user: #{resource.inspect}"
+      end
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -104,9 +111,11 @@ class User::RegistrationsController < Devise::RegistrationsController
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[
                                         email
+                                        first_name
+                                        last_name
+                                        address
                                         password
                                         password_confirmation
-
                                       ])
   end
 
@@ -116,9 +125,16 @@ class User::RegistrationsController < Devise::RegistrationsController
   end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[
+                                        email
+                                        first_name
+                                        last_name
+                                        address
+                                        password
+                                        password_confirmation
+                                      ])
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)

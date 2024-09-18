@@ -1,5 +1,6 @@
 class UserController < ApplicationController
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :set_user_cart, if: -> { Product.any? }, unless: -> { controller_name == 'checkout' }
   # before_action :set_wishlist_count, if: -> { current_customer }
   #

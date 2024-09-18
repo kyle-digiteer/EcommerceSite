@@ -4,7 +4,8 @@
   - @orders.each do |order|
     .card.mb-3
       .card-body
-        h5.card-title Order for #{order.user.email}
+        h5.card-title Order for: #{order.user.first_name.concat(" " + order.user.last_name)}
+        h6.cart-title Address: #{order.user.address}
         p.card-text
           strong Total:
           = number_to_currency(order.total, unit: '₱')

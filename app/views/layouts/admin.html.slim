@@ -23,7 +23,8 @@ html lang="en"
           .navbar-nav
             = link_to 'Products', admin_products_path, class: 'nav-item nav-link'
             = link_to 'Orders', admin_orders_path, class: 'nav-item nav-link'
-
+            = button_to "Logout", destroy_admin_session_path, method: :delete, class: 'nav-link'
+    .container
     .container
       - if notice
         .alert.alert-success
