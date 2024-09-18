@@ -1,0 +1,17 @@
+.container.mt-4
+  h1.text-center This is Order Dashboard
+
+  - @orders.each do |order|
+    .card.mb-3
+      .card-body
+        h5.card-title Order for: #{order.user.first_name.concat(" " + order.user.last_name)}
+        h6.cart-title Address: #{order.user.address}
+        p.card-text
+          strong Total:
+          = number_to_currency(order.total, unit: '₱')
+          /# Assuming PHP as the currency
+        .d-flex.justify-content-between
+          = link_to "View Order", admin_order_path(order), class: 'btn btn-primary'
+    hr
+  .mt-4.mb4
+    == pagy_nav(@pagy)

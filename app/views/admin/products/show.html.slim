@@ -1,0 +1,30 @@
+.container.mt-4
+  .row.justify-content-center
+    .col-md-8
+      .card.mb-3
+        .card-body
+          h3 = @product.name
+          p
+            strong Description:
+            = @product.description
+
+          - @product.product_variants.each do |variant|
+            .mb-3
+              .d-flex.justify-content-between
+                div
+                  strong Price:
+                  = number_to_currency(variant.price, unit: '₱')
+                div
+                  strong Stock:
+                  = variant.stock
+            .mb-2
+              strong Size:
+              = variant.size
+            .mb-2
+              strong Color:
+              = variant.color
+
+          .mt-3
+            = link_to "Edit this product", edit_admin_product_path(@product), class: 'btn btn-warning'
+            |
+            = button_to "Destroy this product", admin_product_path(@product), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }

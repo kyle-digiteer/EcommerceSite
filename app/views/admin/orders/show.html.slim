@@ -1,0 +1,35 @@
+.container.mt-4
+  h1.text-center This is Order for #{@order.user.email}
+
+  .card.mb-4
+    .card-body
+      h4.card-title Order Details
+
+      .mb-3
+        h5 Product Details
+        - @order.cart.cart_items.each do |item|
+          .card.mb-3
+            .card-body
+              p
+                strong Name:
+                =< item.product.name
+              p
+                strong Description:
+                =< item.product.description
+
+      .mb-3
+        p
+          strong Order Status:
+          =< @order.order_status
+      .mb-3
+        p
+          strong Payment Status:
+          =< @order.payment_status
+      .mb-3
+        p
+          strong Total Price:
+          =< number_to_currency(@order.total, unit: '₱')
+          / # Assuming PHP as the currency
+
+      .mt-4
+        =< link_to "Edit", edit_admin_order_path(@order), class: 'btn btn-warning'

@@ -1,0 +1,13 @@
+.container.mt-4
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h1.text-center Create a Wallet
+        .card-body
+          = form_with(model: @wallet, url: user_wallet_index_path, method: :post, local: true) do |f|
+            .mb-3
+              = f.label :balance, 'Initial Balance', class: 'form-label'
+              = f.number_field :balance, step: '0.01', class: 'form-control', min: '0'
+
+            = f.submit 'Create Wallet', class: 'btn btn-primary btn-lg'

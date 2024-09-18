@@ -1,0 +1,43 @@
+h1 Checkout
+
+- if @cart.cart_items.any?
+  h2 Cart Summary
+
+  table.table
+    thead
+      tr
+        th Product
+        th Quantity
+        th Unit Price
+        th Total Price
+    tbody
+      - @cart.cart_items.each do |cart_item|
+        - if cart_item.product_variant.present?
+          tr
+            td
+              = cart_item.product_variant.color
+              small
+                = cart_item.product_variant.size
+            td
+              = cart_item.quantity
+            td
+              = number_to_currency(cart_item.product_variant.price)
+            td
+              = number_to_currency(cart_item.quantity * cart_item.product_variant.price)
+
+  h3 Total Price:
+    = number_to_currency(@cart.total_price || 0)
+
+  h2 Payment Method
+
+  = form_with url: checkout_user_orders_path, method: :post, local: true do |f|
+    = f.radio_button :payment_method, 'cod'
+    = f.label :payment_method_cod, 'Cash on Delivery'
+    br
+    = f.radio_button :payment_method, 'bank_transfer'
+    = f.label :payment_method_bank_transfer, 'Bank Transfer'
+    br
+    = f.submit 'Place Order', class: 'btn btn-primary'
+- else
+  p Your cart is empty.
+  = link_to 'Continue Shopping', user_products_path, class: 'btn btn-primary'
