@@ -10,9 +10,12 @@ html
     = javascript_importmap_tags
   body
     .container
-      - flash.each do |key, message|
-        .alert.alert-#{key == 'notice' ? 'info' : 'danger'}
-          = message
+      - if notice
+        .alert.alert-success
+          = notice
+      - if alert
+        .alert.alert-danger
+          = alert
 
     - if user_signed_in?
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
