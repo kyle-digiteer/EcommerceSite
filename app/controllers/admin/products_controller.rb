@@ -3,7 +3,7 @@ class Admin::ProductsController < AdminController
 
   # GET /products or /products.json
   def index
-    @products = Product.all
+    @pagy, @products = pagy(Product.all, items: 9, limit: 9)
   end
 
   # GET /products/1 or /products/1.json
@@ -35,7 +35,6 @@ class Admin::ProductsController < AdminController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-
     if @product.update(product_params)
       redirect_to admin_product_path(@product), notice: 'Product was successfully updated.'
 

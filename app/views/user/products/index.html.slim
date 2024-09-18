@@ -8,3 +8,4 @@
             h5.card-title = product.name
             p.card-text = product.description
             = link_to "Show", user_product_path(product), class: "btn btn-primary"
+  == pagy_nav(@pagy)

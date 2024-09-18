@@ -2,7 +2,7 @@ class User::ProductsController < UserController
   before_action :set_product, only: %i[show]
 
   def index
-    @products = Product.all
+    @pagy, @products = pagy(Product.all, limit: 9, items: 9)
   end
 
   def show

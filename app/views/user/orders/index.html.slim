@@ -38,6 +38,7 @@
           h5.mb-0
             | Total:
             span.text-success =< number_to_currency(order.total, unit: "₱")
+    == pagy_nav(@pagy)
   - else
     .alert.alert-info.text-center
       | You have no orders yet.

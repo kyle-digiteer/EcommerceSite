@@ -12,3 +12,5 @@
         .d-flex.justify-content-between
           = link_to "View Order", admin_order_path(order), class: 'btn btn-primary'
     hr
+  .mt-4.mb4
+    == pagy_nav(@pagy)

@@ -9,14 +9,6 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   body
-    .container
-      - if notice
-        .alert.alert-success
-          = notice
-      - if alert
-        .alert.alert-danger
-          = alert
-
     - if user_signed_in?
       nav.navbar.navbar-expand-lg.navbar-light.bg-light
         .container
@@ -40,7 +32,13 @@ html
                       = link_to "Create Wallet", new_user_wallet_path, class: 'btn btn-primary'
                   li.nav-item
                     = button_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-link'
-    - else
+    .container
+      - if notice
+        .alert.alert-success
+          = notice
+      - if alert
+        .alert.alert-danger
+          = alert
     main
       = yield
     script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"

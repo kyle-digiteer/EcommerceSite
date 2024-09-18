@@ -1,6 +1,6 @@
 class User::OrdersController < UserController
   def index
-    @orders = Order.where(user_id: current_user.id).order(:created_at)
+    @pagy, @orders = pagy(Order.where(user_id: current_user.id).order(created_at: :desc), limit: 3, items: 3)
   end
 
   def confirmation

@@ -1,7 +1,7 @@
 class Admin::OrdersController < AdminController
   before_action :set_orders, except: [:index]
   def index
-    @orders = Order.all.order(:created_at)
+    @pagy, @orders = pagy(@orders = Order.all.order(:created_at), limit: 5, items: 5)
   end
 
   def show

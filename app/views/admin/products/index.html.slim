@@ -1,14 +1,20 @@
 .container.mt-4
   h1 Products
 
+  .mt-4.mb-4
+    = link_to "New Product", new_admin_product_path, class: 'btn btn-success'
   .row
     - @products.each do |product|
       .col-md-4.mb-4
         .card
           .card-body.p-4
-            = render product
+            = render partial: 'product', locals: { product: product }
             .mt-3
               p
                 = link_to "Show this product", admin_product_path(product), class: 'btn btn-primary'
-  .mt-4
-    = link_to "New Product", new_admin_product_path, class: 'btn btn-success'
+  .mt-4.mb4
+    == pagy_nav(@pagy)
+
+
+
+
