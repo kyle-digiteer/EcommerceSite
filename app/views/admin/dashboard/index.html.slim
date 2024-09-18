@@ -1,0 +1,17 @@
+.container.mt-4
+      h1.text-center This is Admin Dashboard
+
+      .row
+        .col-md-6
+          .card
+            .card-body
+              h4.card-title Products
+              p Manage all your products here.
+              = link_to "View Products", admin_products_path, class: 'btn btn-primary'
+
+        .col-md-6
+          .card
+            .card-body
+              h4.card-title Orders
+              p Manage all your orders here.
+              = link_to "View Orders", admin_orders_path, class: 'btn btn-primary'

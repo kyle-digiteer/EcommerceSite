@@ -1,0 +1,11 @@
+.container.mt-4
+  .row.justify-content-center
+    .col-md-8
+      .card
+        .card-header
+          h1.text-center Welcome to Our Shop
+        .card-body
+          p.text-center
+            | This is the homepage where you can shop for our latest products.
+          .text-center
+            = link_to "Shop Now", user_products_path, class: 'btn btn-primary btn-lg'

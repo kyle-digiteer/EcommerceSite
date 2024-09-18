@@ -1,0 +1,50 @@
+.container.mt-4
+  h1 Your Shopping Cart
+
+  - if @cart.cart_items.any?
+    table.table.table-bordered
+      thead
+        tr
+          th Product Name
+          th Product Color
+          th Size
+          th Quantity
+          th Unit Price
+          th Total Price
+          th Actions
+      tbody
+        - @cart.cart_items.each do |cart_item|
+          - if cart_item.product_variant.present?
+            tr
+              td = cart_item.product.name
+              td = cart_item.product_variant.color
+              td
+                small = cart_item.product_variant.size
+              td
+                = form_with(model: cart_item, url: user_carts_item_path(cart_item), method: :patch, local: true) do |f|
+                  .input-group
+                    = f.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control w-50'
+                    .input-group-append
+                      = f.submit 'Update', class: 'btn btn-primary'
+              td = number_to_currency(cart_item.product_variant.price, unit: "₱")
+              td = number_to_currency(cart_item.quantity * cart_item.product_variant.price, unit: "₱")
+              td
+                = button_to 'Remove', user_carts_item_path(cart_item.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+          - else
+            tr
+              td{ colspan: 7 }
+                p.text-danger Cart item with missing product variant
+
+    hr
+
+    .row.justify-content-between.align-items-center
+      h3.col-md-6
+        | Total Price:
+        span.text-success =< number_to_currency(@cart.total_price || 0, unit: "₱")
+
+      .col-md-6.text-end
+        = button_to 'Checkout', checkout_user_orders_path, method: :post, class: 'btn btn-success'
+
+  - else
+    p Your cart is empty.
+    = link_to 'Continue Shopping', user_products_path, class: 'btn btn-primary mt-3'

@@ -1,0 +1,13 @@
+.container.mt-4
+  .row.justify-content-center
+    .col-md-6
+      .card
+        .card-header
+          h1.text-center Cash In
+        .card-body
+          = form_with(model: @wallet, url: cash_in_user_wallet_path(@wallet), method: :patch, local: true) do |f|
+            .mb-3
+              = f.label :amount, 'Amount to Add', class: 'form-label'
+              = f.number_field :amount, step: '0.01', class: 'form-control', min: '0'
+
+            = f.submit 'Add Funds', class: 'btn btn-primary btn-lg'

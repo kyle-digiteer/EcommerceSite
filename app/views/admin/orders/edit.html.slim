@@ -1,0 +1,46 @@
+.container.mt-4
+  h1.text-center Edit Order
+
+  =< form_with(model: @order, url: admin_order_path(@order), method: :patch, local: true) do |f|
+    .card.mb-4
+      .card-body
+        .form-group
+          =< f.label :order_status, 'Order Status'
+          =< f.select :order_status, options_for_select(['Pending', 'Processing', 'Completed', 'Cancelled'], @order.order_status.capitalize), class: 'form-control'
+
+        .form-group
+          =< f.label :payment_status, 'Payment Status'
+          =< f.select :payment_status, options_for_select(['Pending', 'Paid', 'Failed', 'Refunded'], @order.payment_status.capitalize), class: 'form-control'
+
+        .form-group
+          =< f.label :total, 'Total Price'
+          =< f.number_field :total, step: 0.1, class: 'form-control', disabled: true
+
+        .form-group
+          h3 Product Details
+          - if @order.order_items.any?
+            - @order.order_items.each do |item|
+              .card.mb-3
+                .card-body
+                  p
+                    strong Name:
+                    =< item.product.name
+                  p
+                    strong Description:
+                    =< item.product.description
+                  p
+                    strong Color:
+                    =< item.product_variant.color
+                  p
+                    strong Size:
+                    =< item.product_variant.size
+                  p
+                    strong Quantity:
+                    =< item.quantity
+                  p
+                    strong Price:
+                    =< number_to_currency(item.product_variant.price, unit: '₱')
+                    /# Assuming PHP as the currency
+
+        .form-group
+          =< f.submit 'Update Order', class: 'btn btn-primary'
