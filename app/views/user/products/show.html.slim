@@ -23,6 +23,6 @@
           = hidden_field_tag :product_variant_id, variant.id
           .form-group
             = f.label :quantity, "Quantity"
-            = number_field_tag :quantity, 1, min: 1, class: 'form-control w-25'
+            = number_field_tag :quantity, 1, min: 1, max: variant.stock, class: 'form-control w-25'
           .form-group.mt-2
             = f.submit 'Add to Cart', class: 'btn btn-primary'

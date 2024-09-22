@@ -23,7 +23,7 @@
               td
                 = form_with(model: cart_item, url: user_carts_item_path(cart_item), method: :patch, local: true) do |f|
                   .input-group
-                    = f.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control w-50'
+                    = f.number_field :quantity, value: cart_item.quantity, min: 1,  max: cart_item.product_variant.stock ,class: 'form-control w-50'
                     .input-group-append
                       = f.submit 'Update', class: 'btn btn-primary'
               td = number_to_currency(cart_item.product_variant.price, unit: "₱")

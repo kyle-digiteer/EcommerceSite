@@ -9,11 +9,14 @@ class User::CartsItemController < UserController
     cart_item.quantity ||= 0
     cart_item.quantity += params[:quantity].to_i
 
-    if cart_item.save
-      @cart.update_total_price
-      redirect_to user_cart_path(@cart), notice: 'Item added to cart successfully'
+    if cart_item.quantity <= product_variant.stock
+      if cart_item.save
+        @cart.update_total_price
+        redirect_to user_cart_path(@cart), notice: 'Item added to cart successfully'
+      end
     else
-      redirect_to user_product_path(product_variant.product_id), alert: 'Failed to add items to cart'
+      redirect_to user_product_path(product_variant.product_id),
+                  alert: 'Your order quantity is not be greater than stock'
     end
   end
 
