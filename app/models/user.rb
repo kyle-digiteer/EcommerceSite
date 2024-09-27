@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one :cart
   has_one :wallet
+  has_many :reviews # dependent destroy?
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   after_create :create_wallet_on_register

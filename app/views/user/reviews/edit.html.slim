@@ -1,0 +1,13 @@
+= form_with(model: @review, url: user_product_review_path(@product, @review), method: :patch, local: true) do |form|
+  = form.hidden_field :user_id, :value=>current_user.id
+
+  = form.label :rating
+  = form.number_field :rating
+
+  = form.label :title
+  = form.text_field :title
+
+  = form.label :description
+  = form.text_area :description
+
+  = form.submit "Update Review"

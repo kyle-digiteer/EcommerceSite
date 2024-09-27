@@ -24,12 +24,22 @@ class Admin::ProductsController < AdminController
   def create
     @product = Product.new(product_params)
 
-    if @product.save
-      redirect_to admin_products_path, notice: 'Product was successfully created.'
-
-    else
-      render :new, status: :unprocessable_entity
-
+    respond_to do |format|
+      if @product.save
+        # redirect_to admin_products_path, notice: 'Product was successfully created.'
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.prepend('product_list', partial: 'admin/products/product', locals: { product: @product }),
+            turbo_stream.replace('product_form', partial: 'admin/products/form', locals: { product: Product.new })
+          ]
+        end
+      else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('product_form', partial: 'admin/products/form',
+                                                                    locals: { product: @product }),
+                 status: :unprocessable_entity
+        end
+      end
     end
   end
 

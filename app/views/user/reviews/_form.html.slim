@@ -1,0 +1,14 @@
+p Add a Review
+= form_with model: [ :user, @product, @product.reviews.build ], local: true, html: { data: { turbo: false }} do |form|
+  = form.hidden_field :user_id, value: current_user.id
+
+  = form.label :rating
+  = form.number_field :rating, :value => 5, min: 1, max: 5
+
+  = form.label :title
+  = form.text_field :title
+
+  = form.label :description
+  = form.text_area :description
+
+  = form.submit

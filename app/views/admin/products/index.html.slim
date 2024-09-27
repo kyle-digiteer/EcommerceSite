@@ -1,20 +1,11 @@
 .container.mt-4
   h1 Products
 
-  .mt-4.mb-4
-    = link_to "New Product", new_admin_product_path, class: 'btn btn-success'
-  .row
+  = turbo_frame_tag "product_form", class:"mt-4 mb-4"  do
+    = render partial: 'form', locals: { product: Product.new }
+  br/
+  #product_list.row
     - @products.each do |product|
-      .col-md-4.mb-4
-        .card
-          .card-body.p-4
-            = render partial: 'product', locals: { product: product }
-            .mt-3
-              p
-                = link_to "Show this product", admin_product_path(product), class: 'btn btn-primary'
+        = render partial: 'product', locals: { product: product}
   .mt-4.mb4
     == pagy_nav(@pagy)
-
-
-
-

@@ -19,7 +19,9 @@ devise_for :users,
 namespace :user, path: '/' do
   resources :home
 
-  resources :products
+  resources :products do
+    resources :reviews
+  end
 
   resources :carts, only: %i[show create update destroy]
   resources :carts_item, only: %i[create update destroy]

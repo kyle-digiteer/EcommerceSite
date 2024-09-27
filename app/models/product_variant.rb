@@ -1,7 +1,7 @@
 class ProductVariant < ApplicationRecord
   belongs_to :product
 
-  # validates :price, :color, :size, :stock, presence: true
+  validates :price, :color, :size, :stock, presence: true
 
   #   validates :price, numericality: { greater_than: 0 }
   #

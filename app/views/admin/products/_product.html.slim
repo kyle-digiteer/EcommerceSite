@@ -1,11 +1,16 @@
-div id="#{dom_id product}"
-  .mb-2
-    p
-      strong Name:
-      =< product.name
+.col-md-4.mb-4
+  .card
+    .card-body.p-4
+      div id="#{dom_id product}"
+        .mb-2
+          p
+            strong Name:
+            =< product.name
 
-  .mb-2
-    p
-      strong Description:
-      =< product.description
-
+        .mb-2
+          p
+        strong Description:
+        =< product.description
+        .mt-3
+          p
+            = link_to "Show this product", admin_product_path(product), class: 'btn btn-primary'

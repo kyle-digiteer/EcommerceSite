@@ -28,3 +28,11 @@
             = link_to "Edit this product", edit_admin_product_path(@product), class: 'btn btn-warning'
             |
             = button_to "Destroy this product", admin_product_path(@product), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+  h3 Reviews
+  - if @product.reviews.any?
+    - @product.reviews.each do |review|
+      p Rate: #{review.rating}
+      p Title: #{review.title}
+      p title: #{review.description}
+  - else
+    p No Reviews

@@ -26,3 +26,12 @@
             = number_field_tag :quantity, 1, min: 1, max: variant.stock, class: 'form-control w-25'
           .form-group.mt-2
             = f.submit 'Add to Cart', class: 'btn btn-primary'
+
+  h3 Product Reviews
+  - @product.reviews.each do |review|
+    p Rate: #{review.rating}
+    p Title: #{review.title}
+    p Description: #{review.description}
+    - if review.belongs_to_user?(current_user.id)
+      = link_to "edit", edit_user_product_review_path(@product, review)
+      = button_to "delete", user_product_review_path(@product, review), method: :delete

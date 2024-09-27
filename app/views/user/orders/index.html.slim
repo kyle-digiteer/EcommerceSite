@@ -38,8 +38,16 @@
           h5.mb-0
             | Total:
             span.text-success =< number_to_currency(order.total, unit: "₱")
+          - order.order_items.each do |item|
+            - if order.order_completed? && order.not_review?(item.product.id, current_user.id)
+              = link_to "Review This Product", new_user_product_review_path(order.order_items.first.product.id)
+            - elsif order.order_completed? && !order.not_review?(item.product.id, current_user.id)
+              p Already Review this product
+            - else
+              p = order.order_status
+
+
     == pagy_nav(@pagy)
   - else
     .alert.alert-info.text-center
       | You have no orders yet.
-
